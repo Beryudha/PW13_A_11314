@@ -29,4 +29,12 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('/contents/{id}',[App\Http\Controllers\Api\ContentController::class,'destroy']);
 
     Route::get('/contents/user/{id}',[App\Http\Controllers\Api\ContentController::class,'showContentbyUser']);
+
+    Route::get('/reviews',[App\Http\Controllers\Api\ReviewController::class,'index']);
+    Route::post('/reviews',[App\Http\Controllers\Api\ReviewController::class,'store']);
+    Route::get('/reviews/{id}',[App\Http\Controllers\Api\ReviewController::class,'show']);
+    Route::put('/reviews/{id}',[App\Http\Controllers\Api\ReviewController::class,'update']);
+    Route::delete('/reviews/{id}',[App\Http\Controllers\Api\ReviewController::class,'destroy']);
+
+    Route::get('/reviews/contents/{id}',[App\Http\Controllers\Api\ReviewController::class,'showReviewbyContent']);
 });

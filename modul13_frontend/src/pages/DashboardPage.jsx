@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Alert, Col, Container, Row, Spinner, Stack } from "react-bootstrap";
+import { Alert, Col, Container, Row, Spinner, Stack, Nav, Button } from "react-bootstrap";
 import { GetAllContents } from "../api/apiContent";
 import { getThumbnail } from "../api";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import ReviewPage from "./ReviewPage";
 
 const DashboardPage = () => {
     const [contents, setContents] = useState([]);
@@ -18,6 +21,15 @@ const DashboardPage = () => {
                 console.log(err);
             });
     }, []);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleReviewClick = ({content}) => {
+    
+        // state nya itu buat passing data content yang diklik ke ReviewPage
+        navigate("/user/review", { state: { content } });
+    };
 
     return (
         <Container className="mt-4">
@@ -56,6 +68,12 @@ const DashboardPage = () => {
                                     </h5>
                                     <p className="card-text">{content.description}</p>
                                 </div>
+                                
+                                <Button variant="primary" 
+                                        className="w-100" 
+                                        onClick={() => handleReviewClick({content})}>
+                                    Review
+                                </Button>
                             </div>
                         </Col>
                     ))}
